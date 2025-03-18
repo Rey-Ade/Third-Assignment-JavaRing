@@ -1,4 +1,10 @@
 package org.project.entity.enemies;
 
-public class Goblin {
+import org.project.object.weapons.Dagger;
+
+public class Goblin extends Enemy{
+
+    public Goblin(Dagger dagger) {
+        super(25, 0, dagger);
+    }
 }
