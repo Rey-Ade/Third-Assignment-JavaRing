@@ -2,11 +2,11 @@ package org.project.object.consumables;
 
 import org.project.entity.Entity;
 
-// TODO: UPDATE IMPLEMENTATION
-public class Flask {
-    /*
-    THIS IS AN EXAMPLE OF A CONSUMABLE DESIGN.
-    */
+public class Flask extends Consumable{
+
+    public Flask() {
+        super("Flask", "Heals 10 HP.");
+    }
 
     // TODO: (BONUS) UPDATE USE METHOD
     @Override
