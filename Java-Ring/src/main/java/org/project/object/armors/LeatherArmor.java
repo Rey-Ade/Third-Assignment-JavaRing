@@ -5,7 +5,7 @@ public class LeatherArmor extends Armor{
     // private int manaCost = 50;
 
     public LeatherArmor() {
-        super(40, 60);
+        super("Leather Armor", 40, 60);
     }
 
 }

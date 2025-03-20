@@ -1,17 +1,29 @@
 package org.project.object.armors;
 
-// TODO: UPDATE IMPLEMENTATION
-public abstract class Armor {
+import org.project.entity.Entity;
+import org.project.object.Object;
+
+public abstract class Armor implements Object {
+    private String name;
     private int defense;
     private int maxDefense;
     private int durability;
     private int maxDurability;
-
     private boolean isBroke;
 
-    public Armor(int defense, int durability) {
+    public Armor(String name, int defense, int durability) {
+        this.name = name;
         this.defense = defense;
         this.durability = durability;
+        this.maxDefense = defense;
+        this.maxDurability = durability;
+    }
+
+    public void takeDamage(int damage) {
+        durability -= damage / 3;
+        if (durability <= 0) {
+            durability = 0;
+        }
     }
 
     public void checkBreak() {
@@ -28,6 +40,10 @@ public abstract class Armor {
         durability = maxDurability;
     }
 
+    public void use(Entity target) {
+
+    }
+
     public int getDefense() {
         return defense;
     }
@@ -39,4 +55,6 @@ public abstract class Armor {
     public boolean isBroke() {
         return isBroke;
     }
+
+    public String getName() { return name; }
 }

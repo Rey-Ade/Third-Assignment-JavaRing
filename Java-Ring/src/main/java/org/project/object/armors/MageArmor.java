@@ -5,6 +5,6 @@ public class MageArmor extends Armor{
     // public int manaCost = 30;
 
     public MageArmor() {
-        super(20, 25);
+        super("Mage Armor", 20, 25);
     }
 }

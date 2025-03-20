@@ -2,19 +2,24 @@ package org.project.entity.players;
 
 import org.project.entity.Entity;
 import org.project.object.armors.Armor;
+import org.project.object.consumables.Consumable;
 import org.project.object.weapons.Weapon;
 
-// TODO: UPDATE IMPLEMENTATION
-public abstract class Player {
+import java.util.ArrayList;
+
+public abstract class Player implements Entity{
     protected String name;
+    private String className;
     Weapon weapon;
     Armor armor;
+    ArrayList<Consumable> items = new ArrayList<>();
     private int hp;
-    private int maxHP;
+    private int maxHP = 100;
     private int mp;
-    private int maxMP;
+    private int maxMP = 100;
 
-    public Player(String name, int hp, int mp, Weapon weapon, Armor armor) {
+    public Player(String name, String className, int hp, int mp, Weapon weapon, Armor armor) {
+        this.className = className;
         this.name = name;
         this.hp = hp;
         this.mp = mp;
@@ -36,7 +41,16 @@ public abstract class Player {
     // TODO: (BONUS) UPDATE THE FORMULA OF TAKING DAMAGE
     @Override
     public void takeDamage(int damage) {
-        hp -= damage - armor.getDefense();
+        armor.checkBreak();
+        if (armor.isBroke()) {
+            hp -= damage;
+        }
+        else if (!armor.isBroke() && armor.getDefense() <= damage) {
+            hp -= damage - armor.getDefense();
+        }
+        if (hp < 0) {
+            hp = 0;
+        }
     }
 
     @Override
@@ -46,15 +60,6 @@ public abstract class Player {
             hp = maxHP;
         }
     }
-
-    @Override
-    public void fillMana(int mana) {
-        mp += mana;
-        if (mp > maxMP) {
-            mp = maxMP;
-        }
-    }
-
 
     public String getName() {
         return name;
@@ -86,4 +91,14 @@ public abstract class Player {
         return armor;
     }
 
+    @Override
+    public String getClassName() { return className; }
+
+    public void foundItem(Consumable item) {
+        items.add(item);
+    }
+
+    public ArrayList<Consumable> itemsList() {
+        return items;
+    }
 }

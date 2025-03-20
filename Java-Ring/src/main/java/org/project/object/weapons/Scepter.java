@@ -3,6 +3,6 @@ package org.project.object.weapons;
 public class Scepter extends Weapon{
 
     public Scepter() {
-        super(20, 10);
+        super(15, 5);
     }
 }

@@ -5,6 +5,7 @@ import org.project.object.weapons.Dagger;
 public class Goblin extends Enemy{
 
     public Goblin(Dagger dagger) {
-        super(25, 0, dagger);
+        super("Goblin", 30, 0, dagger);
     }
+
 }

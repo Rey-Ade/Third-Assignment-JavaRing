@@ -5,16 +5,28 @@ import org.project.object.armors.Armor;
 import org.project.object.armors.PlateArmor;
 import org.project.object.weapons.*;
 
-// TODO: UPDATE IMPLEMENTATION (Done)
 public class Knight extends Player {
-    // TODO: DESIGN KNIGHT'S WEAPON AND ARMOR AND IMPLEMENT THE CONSTRUCTOR (Done)
 
-    private int strongKick = 20;
+    private int Kick = 35;
+    private boolean usedKick = true;
+
     public Knight (String name, Sword sword, PlateArmor PlateArmor) {
-        super(name, 100, 40, sword, PlateArmor);
+        super(name, " (Knight)",100, 40, sword, PlateArmor);
     }
 
     public void specialAttack(Entity target) {
-        target.takeDamage(strongKick);
+        target.takeDamage(Kick);
+    }
+
+    public int getKick() {
+        return Kick;
+    }
+
+    public boolean getUseKick() {
+        return usedKick;
+    }
+
+    public void setUsedKick(boolean kick) {
+        usedKick = kick;
     }
 }

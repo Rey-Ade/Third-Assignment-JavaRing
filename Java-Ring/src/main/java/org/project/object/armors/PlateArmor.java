@@ -1,19 +1,11 @@
 package org.project.object.armors;
 
-// TODO: UPDATE IMPLEMENTATION
 public class PlateArmor extends Armor {
-    // TODO: DESIGN ARMOR'S ATTRIBUTES IMPLEMENT THE CONSTRUCTOR
 
-    // private int manaCost = 5;
+    // private int manaCost = 60;
 
     public PlateArmor() {
-        super(10, 60);
+        super("Plate Armor", 50, 80);
     }
-
-//    @Override
-//    public void repair() {
-//        super.repair();
-//
-//    }
 
 }

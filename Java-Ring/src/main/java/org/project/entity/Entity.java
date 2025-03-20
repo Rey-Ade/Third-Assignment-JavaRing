@@ -7,13 +7,15 @@ public interface Entity {
 
     void heal(int health);
 
-    void fillMana(int mana);
+    //void fillMana(int mana);
 
     void takeDamage(int damage);
 
     int getMaxHP();
 
     int getMaxMP();
+
+    String getClassName();
 
     /*
     TODO: ADD OTHER REQUIRED AND BONUS METHODS
