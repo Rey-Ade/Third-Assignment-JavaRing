@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public abstract class Player implements Entity{
     protected String name;
-    private String className;
+    protected String className;
     Weapon weapon;
     Armor armor;
     ArrayList<Consumable> items = new ArrayList<>();
@@ -30,8 +30,11 @@ public abstract class Player implements Entity{
 
     @Override
     public void attack(Entity target) {
+        System.out.println(name + className + " attacked " + target.getClassName() + "!");
         target.takeDamage(weapon.getDamage());
     }
+
+    public abstract void specialAttack(Entity target);
 
     @Override
     public void defend() {
@@ -44,9 +47,16 @@ public abstract class Player implements Entity{
         armor.checkBreak();
         if (armor.isBroke()) {
             hp -= damage;
+            System.out.println(name + className + " took " + damage + " damage!");
         }
         else if (!armor.isBroke() && armor.getDefense() <= damage) {
             hp -= damage - armor.getDefense();
+            System.out.println(name + className + " took " + (damage - armor.getDefense()) + " damage!");
+            armor.takeDamage(armor.getDefense());
+        }
+        else {
+            System.out.println(name + className + " took 0 damage!");
+            armor.takeDamage(damage);
         }
         if (hp < 0) {
             hp = 0;
@@ -60,6 +70,13 @@ public abstract class Player implements Entity{
             hp = maxHP;
         }
     }
+
+    @Override
+    public void displayHP(){
+        System.out.println(name + className + " has " + hp + " health remaining.");
+    }
+
+    public abstract void resetAbility();
 
     public String getName() {
         return name;
@@ -92,7 +109,9 @@ public abstract class Player implements Entity{
     }
 
     @Override
-    public String getClassName() { return className; }
+    public String getClassName() {
+        return className;
+    }
 
     public void foundItem(Consumable item) {
         items.add(item);
@@ -100,5 +119,10 @@ public abstract class Player implements Entity{
 
     public ArrayList<Consumable> itemsList() {
         return items;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return hp > 0;
     }
 }

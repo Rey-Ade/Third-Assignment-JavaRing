@@ -40,6 +40,7 @@ public abstract class Armor implements Object {
         durability = maxDurability;
     }
 
+    @Override
     public void use(Entity target) {
 
     }
@@ -52,9 +53,15 @@ public abstract class Armor implements Object {
         return durability;
     }
 
+    public void displayDurability() {
+        System.out.println(name + " has " + durability + " durability remaining.");
+    }
+
     public boolean isBroke() {
         return isBroke;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 }

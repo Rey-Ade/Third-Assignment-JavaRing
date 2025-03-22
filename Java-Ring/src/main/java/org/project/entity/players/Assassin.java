@@ -19,13 +19,22 @@ public class Assassin extends Player{
     @Override
     public void attack(Entity target) {
         if (invisible && counter < 3){
-            target.takeDamage(weapon.getDamage() + extraDamage);
-            counter++;
+            specialAttack(target);
         }
         else {
-            target.takeDamage(weapon.getDamage());
+            super.attack(target);
             isInvisible = false;
         }
+    }
+
+    @Override
+    public void specialAttack(Entity target) {
+        invisible = true;
+        isInvisible = true;
+        System.out.println(name + className + "became invisible!");
+        System.out.println(name + className + " attacked " + target.getClassName() + "!");
+        target.takeDamage(weapon.getDamage() + extraDamage);
+        counter++;
     }
 
     @Override
@@ -35,12 +44,8 @@ public class Assassin extends Player{
         }
     }
 
-    public void becomeInvisible() {
-        invisible = true;
-        isInvisible = true;
-    }
-
-    public void resetInvisible() {
+    @Override
+    public void resetAbility() {
         invisible = false;
         isInvisible = false;
         counter = 0;

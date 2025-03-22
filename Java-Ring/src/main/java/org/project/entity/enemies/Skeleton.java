@@ -12,9 +12,10 @@ public class Skeleton extends Enemy{
     }
 
     public void specialAbility() {
-        if (!resurrected) {
+        if (!resurrected && hp == 0) {
             hp = 80;
             resurrected = true;
+            System.out.println("Skeleton has been resurrected!");
         }
     }
 

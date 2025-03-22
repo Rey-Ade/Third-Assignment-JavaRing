@@ -15,9 +15,13 @@ public class Wizard extends Player{
         super(name, " (Wizard)", 100, 100, scepter, mageArmor);
     }
 
-    public void specialSpell(Entity target) {
+    @Override
+    public void specialAttack(Entity target) {
+        System.out.println(name + className + " casted Special Spell!");
+        System.out.println(name + className + " healed " + spellHeal + " health!");
         heal(spellHeal);
         target.takeDamage(spellDamage);
+        castSpell = true;
     }
 
     public boolean getCastSpell() {
@@ -32,7 +36,8 @@ public class Wizard extends Player{
         return spellHeal;
     }
 
-    public void setCastSpell(boolean cast) {
-        castSpell = cast;
+    @Override
+    public void resetAbility() {
+        castSpell = false;
     }
 }

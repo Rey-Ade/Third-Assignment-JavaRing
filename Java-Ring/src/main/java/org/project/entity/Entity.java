@@ -15,6 +15,10 @@ public interface Entity {
 
     int getMaxMP();
 
+    boolean isAlive();
+
+    void displayHP();
+
     String getClassName();
 
     /*
