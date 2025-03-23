@@ -1,14 +1,17 @@
 package org.project.entity.enemies;
 
+import org.project.entity.Entity;
+import org.project.object.weapons.Sword;
 import org.project.object.weapons.Sword;
 
 
 public class Skeleton extends Enemy{
 
     private boolean resurrected = false;
+    Sword sword = new Sword();
 
-    public Skeleton(Sword sword) {
-        super("Skeleton", 80, 40, sword);
+    public Skeleton() {
+        super("Skeleton", 80, 40);
     }
 
     public void specialAbility() {
@@ -19,7 +22,9 @@ public class Skeleton extends Enemy{
         }
     }
 
-    public boolean getResurrected() {
-        return resurrected;
+    @Override
+    public void attack(Entity target) {
+        super.attack(target);
+        target.takeDamage(sword.getDamage());
     }
 }

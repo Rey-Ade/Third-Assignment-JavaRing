@@ -49,12 +49,4 @@ public class Assassin extends Player{
         isInvisible = false;
         counter = 0;
     }
-
-    public boolean getIsInvisible() {
-        return isInvisible;
-    }
-
-    public int getExtraDamage() {
-        return extraDamage;
-    }
 }

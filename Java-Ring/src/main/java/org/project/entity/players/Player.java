@@ -21,7 +21,7 @@ public abstract class Player implements Entity{
     private int mp;
     private int maxMP = 100;
     private boolean isdefending = false;
-    protected boolean specialAbility = true;
+    protected boolean specialAbility = true; // can use special ability
 
     public Player(String name, String className, int hp, int mp, Weapon weapon, Armor armor, String abilityName) {
         this.className = className;
@@ -205,5 +205,13 @@ public abstract class Player implements Entity{
     @Override
     public boolean isAlive() {
         return hp > 0;
+    }
+
+    public void setIsDefending(boolean isdefending) {
+        this.isdefending = isdefending;
+    }
+
+    public boolean getIsdefending() {
+        return isdefending;
     }
 }

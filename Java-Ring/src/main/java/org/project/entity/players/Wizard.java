@@ -23,12 +23,4 @@ public class Wizard extends Player{
         target.takeDamage(spellDamage);
         specialAbility = false;
     }
-
-    public int getSpellDamage() {
-        return spellDamage;
-    }
-
-    public int getSpellHeal() {
-        return spellHeal;
-    }
 }

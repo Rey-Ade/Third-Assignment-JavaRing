@@ -30,8 +30,4 @@ public class Knight extends Player {
             specialAbility = true;
         }
     }
-
-    public int getKick() {
-        return Kick;
-    }
 }

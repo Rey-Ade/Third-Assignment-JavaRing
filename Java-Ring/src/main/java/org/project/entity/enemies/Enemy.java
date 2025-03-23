@@ -6,19 +6,17 @@ import org.project.object.weapons.Weapon;
 
 public abstract class Enemy implements Entity {
     private String className;
-    Weapon weapon;
     protected int hp;
     private int mp;
     private int maxHP;
     private int maxMP;
 
-    public Enemy(String className, int hp, int mp, Weapon weapon) {
+    public Enemy(String className, int hp, int mp) {
         this.className = className;
         this.hp = hp;
         maxHP = hp;
         this.mp = mp;
         maxMP = mp;
-        this.weapon = weapon;
     }
 
     // TODO: (BONUS) UPDATE THE FORMULA OF TAKING DAMAGE
@@ -34,7 +32,6 @@ public abstract class Enemy implements Entity {
     @Override
     public void attack(Entity target) {
         System.out.println(className + " attacked " + ((Player) target).getName() + target.getClassName() + "!");
-        target.takeDamage(weapon.getDamage());
     }
 
     @Override
@@ -48,10 +45,6 @@ public abstract class Enemy implements Entity {
         if (hp > maxHP) {
             hp = maxHP;
         }
-    }
-
-    public int getHp() {
-        return hp;
     }
 
     @Override
@@ -76,10 +69,6 @@ public abstract class Enemy implements Entity {
 
     @Override
     public String getClassName() { return className; }
-
-    public Weapon getWeapon() {
-        return weapon;
-    }
 
     @Override
     public boolean isAlive() {

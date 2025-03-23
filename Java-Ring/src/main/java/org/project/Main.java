@@ -16,30 +16,29 @@ public class Main {
         List<Location> locations = new ArrayList<>();
 
         ArrayList<Enemy> hillEnemies = new ArrayList<>();
-        hillEnemies.add(new Skeleton(new Sword()));
-        hillEnemies.add(new Goblin(new Dagger()));
-        hillEnemies.add(new Goblin(new Dagger()));
+        hillEnemies.add(new Skeleton());
+        hillEnemies.add(new Goblin());
+        hillEnemies.add(new Goblin());
         Location hill = new Location("Valley of Oblivion", null, hillEnemies);
 
         ArrayList<Enemy> mountainEnemies = new ArrayList<>();
-        mountainEnemies.add(new Skeleton(new Sword()));
-        mountainEnemies.add(new Skeleton(new Sword()));
-        mountainEnemies.add(new Goblin(new Dagger()));
+        mountainEnemies.add(new Skeleton());
+        mountainEnemies.add(new Skeleton());
+        mountainEnemies.add(new Goblin());
         Location mountain = new Location("Mountain of Enlightenment", null, mountainEnemies);
 
         ArrayList<Enemy> woodsEnemies = new ArrayList<>();
-        woodsEnemies.add(new Skeleton(new Sword()));
-        woodsEnemies.add(new Skeleton(new Sword()));
-        woodsEnemies.add(new Skeleton(new Sword()));
-        woodsEnemies.add(new Skeleton(new Sword()));
-        woodsEnemies.add(new Goblin(new Dagger()));
+        woodsEnemies.add(new Skeleton());
+        woodsEnemies.add(new Skeleton());
+        woodsEnemies.add(new Goblin());
+        woodsEnemies.add(new Goblin());
         Location woods = new Location("Forest of Shimmer", null, woodsEnemies);
 
         ArrayList<Enemy> desertEnemies = new ArrayList<>();
-        desertEnemies.add(new Skeleton(new Sword()));
-        desertEnemies.add(new Skeleton(new Sword()));
-        desertEnemies.add(new Skeleton(new Sword()));
-        //Dragon enemy
+        desertEnemies.add(new Skeleton());
+        desertEnemies.add(new Skeleton());
+        desertEnemies.add(new Skeleton());
+        desertEnemies.add(new Dragon());
         Location desert = new Location("Desert of the Lost", null, desertEnemies);
 
         locations.add(hill);
@@ -168,7 +167,9 @@ public class Main {
                                 continue;
                             }
                             //enemy's turn
-                            ((Skeleton) enemy).specialAbility();
+                            if (enemy instanceof Skeleton) {
+                                ((Skeleton) enemy).specialAbility();
+                            }
                             if (enemy.isAlive()) {
                                 enemy.attack(player);
                                 player.displayHP();
