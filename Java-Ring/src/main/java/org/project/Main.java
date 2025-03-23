@@ -15,35 +15,14 @@ public class Main {
     public static void main(String[] args) {
         List<Location> locations = new ArrayList<>();
 
-        ArrayList<Enemy> hillEnemies = new ArrayList<>();
-        hillEnemies.add(new Skeleton());
-        hillEnemies.add(new Goblin());
-        hillEnemies.add(new Goblin());
-        Location hill = new Location("Valley of Oblivion", null, hillEnemies);
+        Location valley = new Location("Valley of Oblivion", 1);
+        Location mountain = new Location("Mountain of Enlightenment", 2);
+        Location forest = new Location("Forest of Shimmer", 3);
+        Location desert = new Location("Desert of the Lost", 4);
 
-        ArrayList<Enemy> mountainEnemies = new ArrayList<>();
-        mountainEnemies.add(new Skeleton());
-        mountainEnemies.add(new Skeleton());
-        mountainEnemies.add(new Goblin());
-        Location mountain = new Location("Mountain of Enlightenment", null, mountainEnemies);
-
-        ArrayList<Enemy> woodsEnemies = new ArrayList<>();
-        woodsEnemies.add(new Skeleton());
-        woodsEnemies.add(new Skeleton());
-        woodsEnemies.add(new Goblin());
-        woodsEnemies.add(new Goblin());
-        Location woods = new Location("Forest of Shimmer", null, woodsEnemies);
-
-        ArrayList<Enemy> desertEnemies = new ArrayList<>();
-        desertEnemies.add(new Skeleton());
-        desertEnemies.add(new Skeleton());
-        desertEnemies.add(new Skeleton());
-        desertEnemies.add(new Dragon());
-        Location desert = new Location("Desert of the Lost", null, desertEnemies);
-
-        locations.add(hill);
+        locations.add(valley);
         locations.add(mountain);
-        locations.add(woods);
+        locations.add(forest);
         locations.add(desert);
 
         // Menu
@@ -56,6 +35,7 @@ public class Main {
         switch (choice) {
             case 1:
                 Player player = null;
+
                 // Choose a character
                 System.out.println("----------------------");
                 System.out.println("Choose you character!");
@@ -78,11 +58,13 @@ public class Main {
                         System.out.println("Invalid choice. Choosing Knight...");
                         player = new Knight(name, new Sword(), new PlateArmor());
                 }
+
                 // Choose a location
                 for (int counter = 0; counter < locations.size(); counter++) {
                     System.out.println("---------------------------------------");
                     System.out.println("Welcome to " + locations.get(counter).getName() + "!");
                     System.out.println("---------------------------------------");
+
                     // Choose an enemy
                     for (Enemy enemy : locations.get(counter).getEnemies()) {
                         System.out.println("------------------------------------");
@@ -96,10 +78,44 @@ public class Main {
                         if (option == 2) {
                             break;
                         }
+
+                        // repair armor and shield before battle begins
+                        int repair = 0;
+                        if (player.getShield().isBroke()) {
+                            System.out.println("Do you want to repair your shield?");
+                            System.out.println("1. Spend " + player.getShield().getManaCost() + " MP\n2. No");
+                            repair = in.nextInt();
+                        }
+                        if (repair == 1) {
+                            if (player.getMp() >= player.getShield().getManaCost()) {
+                                player.getShield().repair();
+                                player.spendMana(player.getShield().getManaCost());
+                            }
+                            else {
+                                System.out.println("Not enough MP.");
+                            }
+                        }
+                        if (player.getArmor().isBroke()) {
+                            System.out.println("Do you want to repair your armor?");
+                            System.out.println("1. Spend " + player.getArmor().getManaCost() + " MP\n2. No");
+                            repair = in.nextInt();
+                        }
+                        if (repair == 1) {
+                            if (player.getMp() >= player.getArmor().getManaCost()) {
+                                player.getArmor().repair();
+                                player.spendMana(player.getArmor().getManaCost());
+                            }
+                            else {
+                                System.out.println("Not enough MP.");
+                            }
+                        }
+
                         player.resetAbility();
+
                         // Game loop
                         while (player.isAlive() && enemy.isAlive()) {
                             boolean exit = false;
+
                             //Menu
                             System.out.println("..................");
                             if (player.getSpecialAbility()) {
@@ -121,6 +137,7 @@ public class Main {
                                 }
                             }
                             System.out.println("..................");
+
                             int ans = in.nextInt();
                             switch (ans) {
                                 case 1:
@@ -134,7 +151,6 @@ public class Main {
                                 case 3:
                                     player.defend();
                                     break;
-                                // use item
                                 case 4:
                                     boolean useItem = false;
                                     while (!useItem) {
@@ -166,10 +182,12 @@ public class Main {
                             if (exit) {
                                 continue;
                             }
+
                             //enemy's turn
                             if (enemy instanceof Skeleton) {
                                 ((Skeleton) enemy).specialAbility();
                             }
+
                             if (enemy.isAlive()) {
                                 enemy.attack(player);
                                 player.displayHP();

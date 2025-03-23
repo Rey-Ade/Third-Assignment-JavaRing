@@ -16,7 +16,7 @@ public abstract class Player implements Entity{
     Armor armor;
     Shield shield = new Shield();
     ArrayList<Consumable> items = new ArrayList<>();
-    private int hp;
+    protected int hp;
     private int maxHP = 100;
     private int mp;
     private int maxMP = 100;
@@ -41,13 +41,11 @@ public abstract class Player implements Entity{
 
     public abstract void specialAttack(Entity target);
 
-    @Override
     public void defend() {
         System.out.println(name + className + " chose to defend.");
         isdefending = true;
     }
 
-    // TODO: (BONUS) UPDATE THE FORMULA OF TAKING DAMAGE
     @Override
     public void takeDamage(int damage) {
         armor.checkBreak();
@@ -130,17 +128,22 @@ public abstract class Player implements Entity{
         }
     }
 
-    @Override
-    public void heal(int health) {
-        hp += health;
-        if (hp > maxHP) {
-            hp = maxHP;
-        }
+    public void spendMana(int mana){
+        mp -= mana;
+        System.out.println(name + className + " spend " + mana + " MP.");
+        System.out.println(name + className + " has " + mp + " MP remaining.");
     }
 
     @Override
     public void displayHP(){
         System.out.println(name + className + " has " + hp + " health remaining.");
+    }
+
+    public void heal(int health) {
+        hp += health;
+        if (hp > maxHP) {
+            hp = maxHP;
+        }
     }
 
     public void resetAbility(){

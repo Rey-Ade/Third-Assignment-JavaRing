@@ -9,20 +9,25 @@ public abstract class Armor implements Object {
     private int maxDefense;
     private int durability;
     private int maxDurability;
+    private int manaCost;
     private boolean isBroke;
 
-    public Armor(String name, int defense, int durability) {
+    public Armor(String name, int defense, int durability, int manaCost) {
         this.name = name;
         this.defense = defense;
         this.durability = durability;
+        this.manaCost = manaCost;
         this.maxDefense = defense;
         this.maxDurability = durability;
     }
 
     public void takeDamage(int damage) {
-        durability -= damage / 3;
-        if (durability <= 0) {
-            durability = 0;
+        if (!isBroke) {
+            durability -= damage / 3;
+            if (durability <= 0) {
+                durability = 0;
+            }
+            checkBreak();
         }
     }
 
@@ -38,6 +43,7 @@ public abstract class Armor implements Object {
         isBroke = false;
         defense = maxDefense;
         durability = maxDurability;
+        System.out.println(name + " is repaired!");
     }
 
     @Override
@@ -63,5 +69,9 @@ public abstract class Armor implements Object {
 
     public String getName() {
         return name;
+    }
+
+    public int getManaCost() {
+        return manaCost;
     }
 }

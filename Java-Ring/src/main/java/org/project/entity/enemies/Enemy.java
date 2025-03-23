@@ -35,19 +35,6 @@ public abstract class Enemy implements Entity {
     }
 
     @Override
-    public void defend() {
-        // TODO: (BONUS) IMPLEMENT A DEFENSE METHOD FOR SHIELDS
-    }
-
-    @Override
-    public void heal(int health) {
-        hp += health;
-        if (hp > maxHP) {
-            hp = maxHP;
-        }
-    }
-
-    @Override
     public void displayHP() {
         System.out.println(className + " has " + hp + " health remaining.");
         if (hp == 0) {
