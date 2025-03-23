@@ -8,18 +8,17 @@ import org.project.object.weapons.*;
 public class Knight extends Player {
 
     private int Kick = 35;
-    private boolean specialAttack = false;
     private int round = 0;
 
     public Knight (String name, Sword sword, PlateArmor PlateArmor) {
-        super(name, " (Knight)",100, 40, sword, PlateArmor);
+        super(name, " (Knight)",100, 40, sword, PlateArmor, "Strong kick");
     }
 
     @Override
     public void specialAttack(Entity target) {
         System.out.println(name + className + " strong kicked " + target.getClassName() + "!");
         target.takeDamage(Kick);
-        specialAttack = false;
+        specialAbility = false;
         round = 0;
     }
 
@@ -28,20 +27,11 @@ public class Knight extends Player {
         super.attack(target);
         round++;
         if (round == 3) {
-            specialAttack = true;
+            specialAbility = true;
         }
     }
 
     public int getKick() {
         return Kick;
-    }
-
-    public boolean getSpecialAttack() {
-        return specialAttack;
-    }
-
-    @Override
-    public void resetAbility() {
-        specialAttack = false;
     }
 }

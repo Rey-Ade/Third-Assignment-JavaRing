@@ -67,14 +67,17 @@ public class Main {
                 String name = in.next();
                 switch (character) {
                     case 1:
-                        new Knight(name, new Sword(), new PlateArmor());
+                        player = new Knight(name, new Sword(), new PlateArmor());
+                        break;
                     case 2:
-                        new Assassin(name, new Scimitar(), new LeatherArmor());
+                        player = new Assassin(name, new Scimitar(), new LeatherArmor());
+                        break;
                     case 3:
-                        new Wizard(name, new Scepter(), new MageArmor());
+                        player = new Wizard(name, new Scepter(), new MageArmor());
+                        break;
                     default:
                         System.out.println("Invalid choice. Choosing Knight...");
-                        new Knight(name, new Sword(), new PlateArmor());
+                        player = new Knight(name, new Sword(), new PlateArmor());
                 }
                 // Choose a location
                 for (int counter = 0; counter < locations.size(); counter++) {
@@ -100,28 +103,22 @@ public class Main {
                             boolean exit = false;
                             //Menu
                             System.out.println("..................");
-                            if (player instanceof Knight) {
-                                if (((Knight) player).getSpecialAttack()) {
-                                    System.out.println("1. Attack\n2. Strong kick\n3. Use item");
+                            if (player.getSpecialAbility()) {
+                                if (player.getShield().isBroke()) {
+                                    System.out.println("1. Attack\n2. " + player.getAbilityName() +
+                                            "\n3. --unavailable--\n4. Use item");
                                 }
                                 else {
-                                    System.out.println("1. Attack\n2. --unavailable--\n3. Use item");
-                                }
-                            }
-                            else if (player instanceof Assassin) {
-                                if (!((Assassin) player).getInvisible()) {
-                                    System.out.println("1. Attack\n2. Invisibility\n3. Use item");
-                                }
-                                else {
-                                    System.out.println("1. Attack\n2. --unavailable--\n3. Use item");
+                                    System.out.println("1. Attack\n2. " + player.getAbilityName() +
+                                            "\n3. Defend\n4. Use item");
                                 }
                             }
                             else {
-                                if (!((Wizard) player).getCastSpell()) {
-                                    System.out.println("1. Attack\n2. Special Spell\n3. Use item");
+                                if (player.getShield().isBroke()) {
+                                    System.out.println("1. Attack\n2. --unavailable--\n3. --unavailable--\n4. Use item");
                                 }
                                 else {
-                                    System.out.println("1. Attack\n2. --unavailable--\n3. Use item");
+                                    System.out.println("1. Attack\n2. --unavailable--\n3. Defend\n4. Use item");
                                 }
                             }
                             System.out.println("..................");
@@ -129,12 +126,17 @@ public class Main {
                             switch (ans) {
                                 case 1:
                                     player.attack(enemy);
+                                    enemy.displayHP();
                                     break;
                                 case 2:
                                     player.specialAttack(enemy);
+                                    enemy.displayHP();
+                                    break;
+                                case 3:
+                                    player.defend();
                                     break;
                                 // use item
-                                case 3:
+                                case 4:
                                     boolean useItem = false;
                                     while (!useItem) {
                                         System.out.println("Items:");
@@ -165,13 +167,13 @@ public class Main {
                             if (exit) {
                                 continue;
                             }
-                            enemy.displayHP();
                             //enemy's turn
                             ((Skeleton) enemy).specialAbility();
                             if (enemy.isAlive()) {
                                 enemy.attack(player);
                                 player.displayHP();
                                 player.getArmor().displayDurability();
+                                player.getShield().displayDurability();
                             }
                         }
                         if (player.isAlive()) {

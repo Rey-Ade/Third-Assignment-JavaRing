@@ -9,16 +9,15 @@ public class Assassin extends Player{
 
     private int counter = 0;
     private int extraDamage = 10;
-    private boolean invisible = false;
     public boolean isInvisible = false;
 
     public Assassin(String name, Scimitar scimitar, LeatherArmor leatherArmor) {
-        super(name, " (Assassin)", 100, 50, scimitar, leatherArmor);
+        super(name, " (Assassin)", 100, 50, scimitar, leatherArmor, "Invisibility");
     }
 
     @Override
     public void attack(Entity target) {
-        if (invisible && counter < 3){
+        if (isInvisible && counter < 3){
             specialAttack(target);
         }
         else {
@@ -29,7 +28,7 @@ public class Assassin extends Player{
 
     @Override
     public void specialAttack(Entity target) {
-        invisible = true;
+        specialAbility= false;
         isInvisible = true;
         System.out.println(name + className + "became invisible!");
         System.out.println(name + className + " attacked " + target.getClassName() + "!");
@@ -39,24 +38,20 @@ public class Assassin extends Player{
 
     @Override
     public void takeDamage(int damage) {
-        if (!invisible) {
+        if (!isInvisible) {
             super.takeDamage(damage);
         }
     }
 
     @Override
     public void resetAbility() {
-        invisible = false;
+        super.resetAbility();
         isInvisible = false;
         counter = 0;
     }
 
     public boolean getIsInvisible() {
         return isInvisible;
-    }
-
-    public boolean getInvisible() {
-        return invisible;
     }
 
     public int getExtraDamage() {

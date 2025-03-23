@@ -9,23 +9,19 @@ public class Wizard extends Player{
 
     private int spellHeal = 40;
     private int spellDamage = 30;
-    private boolean castSpell = false;
 
     public Wizard(String name, Scepter scepter, MageArmor mageArmor) {
-        super(name, " (Wizard)", 100, 100, scepter, mageArmor);
+        super(name, " (Wizard)", 100, 100, scepter, mageArmor, "Special spell");
     }
 
     @Override
     public void specialAttack(Entity target) {
         System.out.println(name + className + " casted Special Spell!");
-        System.out.println(name + className + " healed " + spellHeal + " health!");
         heal(spellHeal);
+        System.out.println(name + className + " healed " + spellHeal + " health!");
+        System.out.println(name + className + " has " + getHp() + " health remaining.");
         target.takeDamage(spellDamage);
-        castSpell = true;
-    }
-
-    public boolean getCastSpell() {
-        return castSpell;
+        specialAbility = false;
     }
 
     public int getSpellDamage() {
@@ -34,10 +30,5 @@ public class Wizard extends Player{
 
     public int getSpellHeal() {
         return spellHeal;
-    }
-
-    @Override
-    public void resetAbility() {
-        castSpell = false;
     }
 }
