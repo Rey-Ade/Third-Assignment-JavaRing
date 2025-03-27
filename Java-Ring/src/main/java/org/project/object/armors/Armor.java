@@ -1,17 +1,34 @@
 package org.project.object.armors;
 
-// TODO: UPDATE IMPLEMENTATION
-public abstract class Armor {
+import org.project.entity.Entity;
+import org.project.object.Object;
+
+public abstract class Armor implements Object {
+    private String name;
     private int defense;
     private int maxDefense;
     private int durability;
     private int maxDurability;
-
+    private int manaCost;
     private boolean isBroke;
 
-    public Armor(int defense, int durability) {
+    public Armor(String name, int defense, int durability, int manaCost) {
+        this.name = name;
         this.defense = defense;
         this.durability = durability;
+        this.manaCost = manaCost;
+        this.maxDefense = defense;
+        this.maxDurability = durability;
+    }
+
+    public void takeDamage(int damage) {
+        if (!isBroke) {
+            durability -= damage / 3;
+            if (durability <= 0) {
+                durability = 0;
+            }
+            checkBreak();
+        }
     }
 
     public void checkBreak() {
@@ -26,6 +43,12 @@ public abstract class Armor {
         isBroke = false;
         defense = maxDefense;
         durability = maxDurability;
+        System.out.println(name + " is repaired!");
+    }
+
+    @Override
+    public void use(Entity target) {
+
     }
 
     public int getDefense() {
@@ -36,7 +59,19 @@ public abstract class Armor {
         return durability;
     }
 
+    public void displayDurability() {
+        System.out.println(name + " has " + durability + " durability remaining.");
+    }
+
     public boolean isBroke() {
         return isBroke;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getManaCost() {
+        return manaCost;
     }
 }
